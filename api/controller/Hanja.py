@@ -4,16 +4,17 @@ import utils
 from extend.hangul_romanize import Transliter
 from extend.hangul_romanize.rule import academic
 
-class Hanja2Roma:
-    def parse(self, hanja):
+
+class Hanja:
+    def convertToRomaja(self, hanja):
         transliter = Transliter(academic)
         segList = utils.splitAscii(hanja)
         sentenceList = []
         for seg in segList:
-            if(seg == " "):
+            if seg == " ":
                 sentenceList.append("-")
-            elif(utils.isAscii(seg)):
-                if(utils.isAsciiPunc(seg)):
+            elif utils.isAscii(seg):
+                if utils.isAsciiPunc(seg):
                     sentenceList.append(seg)
                 else:
                     sentenceList.append([seg])
@@ -22,15 +23,14 @@ class Hanja2Roma:
                 sentenceList.append(roma.split(" "))
         return sentenceList
 
-
     @staticmethod
-    @api_blue.route('/asciiurl/hanja2roma', methods=['GET', 'POST'])
+    @api_blue.route('/hanja/romaja/', methods=['GET', 'POST'])
     def hanja2roma():
         params = utils.getParam(request)
         sentence = params.get('sentence')
-        if(sentence):
-            parser = Hanja2Roma()
-            data = parser.parse(sentence)
+        if sentence:
+            convertor = Hanja()
+            data = convertor.convertToRomaja(sentence)
             return utils.ajaxResponse(1, data)
         else:
             return utils.ajaxResponse(-1, error="Param 'sentence' not set.")

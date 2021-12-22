@@ -1,19 +1,17 @@
-from api import api_blue
-from flask import Response, request
-import utils
+from flask import request
 
-from api import api_blue
-from flask import Response, request
 import utils
+from api import api_blue
 from extend.kanji_to_romaji import kanji_to_romaji
 
-class Kanji2Romaji:
-    def parse(self, kanji):
+
+class Kanji:
+    def convertToRomaji(self, kanji):
         segList = utils.splitAscii(kanji)
         sentenceList = []
         for seg in segList:
-            if(utils.isAscii(seg)):
-                if(utils.isAsciiPunc(seg)):
+            if utils.isAscii(seg):
+                if utils.isAsciiPunc(seg):
                     sentenceList.append(seg)
                 else:
                     sentenceList.append([seg])
@@ -22,15 +20,14 @@ class Kanji2Romaji:
                 sentenceList.append(romaji.split(" "))
         return sentenceList
 
-
     @staticmethod
-    @api_blue.route('/asciiurl/kanji2romaji', methods=['GET', 'POST'])
+    @api_blue.route('/kanji/romaji/', methods=['GET', 'POST'])
     def kanji2romaji():
         params = utils.getParam(request)
         sentence = params.get('sentence')
-        if(sentence):
-            parser = Kanji2Romaji()
-            data = parser.parse(sentence)
+        if sentence:
+            convertor = Kanji()
+            data = convertor.convertToRomaji(sentence)
             return utils.ajaxResponse(1, data)
         else:
             return utils.ajaxResponse(-1, error="Param 'sentence' not set.")
