@@ -51,6 +51,7 @@ class Hanzi:
 
     @staticmethod
     @api_blue.route('/hanzi/pinyin/', methods=['GET', 'POST'])
+    @api_blue.route('/hanzi/pinyin', methods=['GET', 'POST'])
     def hanziToPinyin():
         params = utils.getParam(request)
         sentence = params.get('sentence')
@@ -63,6 +64,7 @@ class Hanzi:
 
     @staticmethod
     @api_blue.route('/hanzi/split/', methods=['GET', 'POST'])
+    @api_blue.route('/hanzi/split', methods=['GET', 'POST'])
     def splitHanzi():
         params = utils.getParam(request)
         sentence = params.get('sentence')

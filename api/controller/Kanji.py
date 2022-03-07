@@ -22,6 +22,7 @@ class Kanji:
 
     @staticmethod
     @api_blue.route('/kanji/romaji/', methods=['GET', 'POST'])
+    @api_blue.route('/kanji/romaji', methods=['GET', 'POST'])
     def kanji2romaji():
         params = utils.getParam(request)
         sentence = params.get('sentence')

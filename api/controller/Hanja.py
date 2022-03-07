@@ -25,6 +25,7 @@ class Hanja:
 
     @staticmethod
     @api_blue.route('/hanja/romaja/', methods=['GET', 'POST'])
+    @api_blue.route('/hanja/romaja', methods=['GET', 'POST'])
     def hanja2roma():
         params = utils.getParam(request)
         sentence = params.get('sentence')
