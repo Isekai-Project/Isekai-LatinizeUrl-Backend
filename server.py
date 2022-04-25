@@ -1,3 +1,4 @@
+from waitress import serve
 from flask import Flask
 from flask_cors import CORS
 import config
@@ -18,4 +19,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=config.PORT)
+    serve(app, host='0.0.0.0', port=config.PORT)
